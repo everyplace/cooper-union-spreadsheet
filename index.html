@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Google Spreadsheets JSON Example</title>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/tabletop.js/1.3.5/tabletop.js"></script>
+    <script>
+    $(document).ready(function(){
+
+      //create your google spreadsheet
+      //here is a sample that you can view in the browser: https://docs.google.com/spreadsheets/d/19-mwdbMdSRGgrssuoCPs0Gd6mxqfPAEHAuBBeI-xWLg/edit?usp=sharing
+      //after creating the spreadsheet, publish it, under file->publish to the web, from within google spreadsheets
+      //copy the publish url, and make sure to hit the big "publish" blue button
+
+      //use the publish url below
+      var public_spreadsheet_url = 'https://docs.google.com/spreadsheets/d/19-mwdbMdSRGgrssuoCPs0Gd6mxqfPAEHAuBBeI-xWLg/pubhtml?gid=0&single=true';
+      //Initialize the Tabletop library for accessing google spreadsheet data
+      Tabletop.init({
+        key: public_spreadsheet_url,
+        callback: showInfo,
+        simpleSheet: true
+      });
+
+      //the showInfo() function runs after the data has been fetched from the spreadsheet
+      //In this example, we are just looping through the data to output it
+      function showInfo(data, tabletop) {
+
+        var fruits = [];
+        for(var i=0; i<data.length; i++) {
+          //note that the 'fruit' key here is because in my sample spreadsheet, the first row is treated as a header
+          //you use that header to access the data
+          console.log(data[i].fruit);
+
+          //add the individual fruit to the fruits array
+          fruits.push(data[i].fruit);
+        }
+        //output the finished array, and do something with it!
+        console.log(fruits);
+      }
+
+    });
+    </script>
+  </head>
+  <body>
+    look in the console
+  </body>
+</html>
